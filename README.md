@@ -16,6 +16,20 @@ $ go get github.com/konojunya/gost
 $ gost /file/to/path [options]
 ```
 
+### Options
+
+input description
+
+```
+$ gost /file/to/path -m "description message"
+```
+
+private gist
+
+```
+$ gost /file/to/path -private
+```
+
 ## Development
 
 ```
