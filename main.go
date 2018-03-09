@@ -52,7 +52,7 @@ func main() {
 	}
 
 	gistURL := service.CreateGist(gist)
-	fmt.Printf("Uploaded your file to gist.\n\nURL: %v\nDescription: %v\nPublic: %v\nFilepath: %v", gistURL, *description, inverted(private), filepath)
+	fmt.Printf("Uploaded your file to gist.\n\nURL: %v\nDescription: %v\nPublic: %v\nFilepath: %v", gistURL, *description, *inverted(private), filepath)
 }
 
 func inverted(b *bool) *bool {
