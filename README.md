@@ -1,2 +1,5 @@
-# gist-cli
+# gost
+
+gost = go + gist
+
 GitHubのgistにコードアップロードするcli
