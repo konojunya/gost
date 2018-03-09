@@ -1,44 +1,61 @@
 package main
 
 import (
-	"context"
 	"flag"
 	"fmt"
-	"io/ioutil"
-	"log"
 	"os"
+	"regexp"
 
 	"github.com/google/go-github/github"
-	"golang.org/x/oauth2"
+	"github.com/konojunya/gost/service"
+	"github.com/konojunya/gost/utils"
+)
+
+var (
+	f     = flag.NewFlagSet(os.Args[0], flag.ExitOnError)
+	usage = "\n\nUsage:\n$ gost /path/to/file [options]:\n-m: description\n-private: private gist"
 )
 
 func main() {
-	flag.Parse()
-	token := os.Getenv("GITHUB_AUTH_TOKEN")
-	if token == "" {
-		log.Fatal("Unauthorized: No token present")
-	}
-	ctx := context.Background()
-	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: token})
-	tc := oauth2.NewClient(ctx, ts)
-	client := github.NewClient(tc)
-
-	body, err := ioutil.ReadFile("./test/index.html")
-	if err != nil {
-		log.Fatal(err)
+	description := f.String("m", "", "Gist Description")
+	private := f.Bool("private", false, "Gist created")
+	f.Parse(os.Args[1:])
+	for 0 < f.NArg() {
+		f.Parse(f.Args()[1:])
 	}
 
-	gist, _, err := client.Gists.Create(ctx, &github.Gist{
-		Description: github.String("hoge"),
-		Public:      github.Bool(true),
+	if len(os.Args) == 1 {
+		fmt.Println("Please input upload filepath." + usage)
+		return
+	}
+
+	filepath := os.Args[1]
+	if !utils.Exists(filepath) {
+		fmt.Println("file not found... :(")
+		return
+	}
+
+	rep := regexp.MustCompile(`/`)
+	result := rep.Split(filepath, -1)
+	filename := result[len(result)-1]
+
+	body := utils.GetFile(filepath)
+
+	gist := &github.Gist{
+		Description: description,
+		Public:      inverted(private),
 		Files: map[github.GistFilename]github.GistFile{
-			"index.html": github.GistFile{
-				Content: github.String(string(body)),
+			github.GistFilename(filename): github.GistFile{
+				Content: github.String(body),
 			},
 		},
-	})
-	if err != nil {
-		log.Fatal(err)
 	}
-	fmt.Println(*gist.HTMLURL)
+
+	gistURL := service.CreateGist(gist)
+	fmt.Printf("Uploaded your file to gist.\n\nURL: %v\nDescription: %v\nPublic: %v\nFilepath: %v", gistURL, *description, inverted(private), filepath)
+}
+
+func inverted(b *bool) *bool {
+	i := !*b
+	return &i
 }
