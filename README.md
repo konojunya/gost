@@ -2,7 +2,7 @@
 
 gost = go + gist
 
-GitHubのgistにコードアップロードするcli
+Upload code to GitHub's gist cli.
 
 ## Installation
 
