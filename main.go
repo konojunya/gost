@@ -7,6 +7,8 @@ import (
 	"regexp"
 
 	"github.com/google/go-github/github"
+	"github.com/konojunya/go-frame"
+
 	"github.com/konojunya/gost/service"
 	"github.com/konojunya/gost/utils"
 )
@@ -15,6 +17,13 @@ var (
 	f     = flag.NewFlagSet(os.Args[0], flag.ExitOnError)
 	usage = "\n\nUsage:\n$ gost /path/to/file [options]:\n-m: description\n-private: private gist"
 )
+
+type Result struct {
+	GistURL     string `frame:"Gist's URL"`
+	Description string
+	Public      bool   `frame:"Is the published gist?"`
+	FilePath    string `frame:"Local file path"`
+}
 
 func main() {
 	description := f.String("m", "", "Gist Description")
@@ -36,8 +45,8 @@ func main() {
 	}
 
 	rep := regexp.MustCompile(`/`)
-	result := rep.Split(filepath, -1)
-	filename := result[len(result)-1]
+	re := rep.Split(filepath, -1)
+	filename := re[len(re)-1]
 
 	body := utils.GetFile(filepath)
 
@@ -52,7 +61,15 @@ func main() {
 	}
 
 	gistURL := service.CreateGist(gist)
-	fmt.Printf("Uploaded your file to gist.\n\nURL: %v\nDescription: %v\nPublic: %v\nFilepath: %v", gistURL, *description, *inverted(private), filepath)
+
+	result := Result{
+		GistURL:     gistURL,
+		Description: *description,
+		Public:      *inverted(private),
+		FilePath:    filepath,
+	}
+
+	frame.Print(result)
 }
 
 func inverted(b *bool) *bool {

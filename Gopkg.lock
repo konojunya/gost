@@ -21,6 +21,12 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/konojunya/go-frame"
+  packages = ["."]
+  revision = "43fb2fe959a85f9b49a45b04556ba09d7b525e3b"
+
+[[projects]]
+  branch = "master"
   name = "golang.org/x/net"
   packages = [
     "context",
@@ -54,6 +60,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "b9a0c2c0669c957c78e766bd722801f264a8cc8a72e3a5c6d9875c07e3351a1b"
+  inputs-digest = "15c4dd1c47a5c04b2705764dec329ccb85b8ec61a0e005844cb03ec34ef30cb4"
   solver-name = "gps-cdcl"
   solver-version = 1
