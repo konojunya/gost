@@ -2,7 +2,7 @@
 
 gost = go + gist
 
-Upload code to GitHub's gist cli.
+gost is a command line tool written in Go (Golang), easily uploading code to GitHub's Gist.
 
 ## Installation
 
