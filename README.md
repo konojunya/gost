@@ -6,28 +6,38 @@ gost is a command line tool written in Go (Golang), easily uploading code to Git
 
 ## Installation
 
-```
+```sh
 $ go get github.com/konojunya/gost
 ```
 
 ## Usage
 
+1. login
+
+```sh
+$ gost login
 ```
-$ gost /file/to/path [options]
+
+After login, a token file is created in `~/.gost`.
+
+2. create gist
+
+```sh
+$ gost create </file/to/path> [options]
 ```
 
 ### Options
 
 input description
 
-```
-$ gost /file/to/path -m "description message"
+```sh
+$ gost create </file/to/path> -m "description message"
 ```
 
 private gist
 
-```
-$ gost /file/to/path -private
+```sh
+$ gost create </file/to/path> --private
 ```
 
 ## Development
