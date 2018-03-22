@@ -1,9 +1,7 @@
 package action
 
 import (
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -21,27 +19,19 @@ import (
 	"github.com/urfave/cli"
 )
 
-func loadConfig(file string) (*model.Config, error) {
-	var config model.Config
-
-	b, err := ioutil.ReadFile(file)
-	if err != nil {
-		return nil, err
+func loadConfig() *model.Config {
+	return &model.Config{
+		ClientID:     "bab35e54bc357ce598d7",
+		ClientSecret: "3f7a6c23a3c2da36cb1ef1665ad5a1fe19091526",
+		AuthURL:      "https://github.com/login/oauth/authorize",
+		TokenURL:     "https://github.com/login/oauth/access_token",
+		RedirectURL:  "http://127.0.0.1:6578/oauth",
 	}
-
-	if err = json.Unmarshal(b, &config); err != nil {
-		return nil, err
-	}
-
-	return &config, nil
 }
 
 // Login github login with oauth
 func Login(c *cli.Context) {
-	config, err := loadConfig("config.json")
-	if err != nil {
-		log.Fatal(err)
-	}
+	config := loadConfig()
 	auth.SetOAuthConfig(*config)
 	server.Listen()
 }
