@@ -8,6 +8,7 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"os"
 	"time"
 
 	"golang.org/x/oauth2"
@@ -49,7 +50,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 
 	closeCh <- true
 
-	t, err := template.ParseFiles("template/index.html")
+	t, err := template.ParseFiles(os.Getenv("GOPATH") + "/src/github.com/konojunya/gost/template/index.html")
 	if err != nil {
 		log.Fatal(err)
 	}
