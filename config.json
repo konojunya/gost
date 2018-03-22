@@ -1,0 +1,7 @@
+{
+  "client_id": "bab35e54bc357ce598d7",
+  "client_secret": "3f7a6c23a3c2da36cb1ef1665ad5a1fe19091526",
+  "authorize_url": "https://github.com/login/oauth/authorize",
+  "token_url": "https://github.com/login/oauth/access_token",
+  "redirect_url": "http://127.0.0.1:6578/oauth"
+}

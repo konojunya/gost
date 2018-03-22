@@ -23,7 +23,19 @@
   branch = "master"
   name = "github.com/konojunya/go-frame"
   packages = ["."]
-  revision = "43fb2fe959a85f9b49a45b04556ba09d7b525e3b"
+  revision = "4038b576833afaa701a1ba90f3cff17741a68379"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/skratchdot/open-golang"
+  packages = ["open"]
+  revision = "75fb7ed4208cf72d323d7d02fd1a5964a7a9073c"
+
+[[projects]]
+  name = "github.com/urfave/cli"
+  packages = ["."]
+  revision = "cfb38830724cc34fedffe9a2a29fb54fa9169cd1"
+  version = "v1.20.0"
 
 [[projects]]
   branch = "master"
@@ -41,7 +53,7 @@
     ".",
     "internal"
   ]
-  revision = "2f32c3ac0fa4fb807a0fcefb0b6f2468a0d99bd0"
+  revision = "fdc9e635145ae97e6c2cb777c48305600cf515cb"
 
 [[projects]]
   name = "google.golang.org/appengine"
@@ -60,6 +72,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "15c4dd1c47a5c04b2705764dec329ccb85b8ec61a0e005844cb03ec34ef30cb4"
+  inputs-digest = "09c3d74f19a24526af52d58e942bc2b7dba797846e3e88f792d749445d1b1f49"
   solver-name = "gps-cdcl"
   solver-version = 1
